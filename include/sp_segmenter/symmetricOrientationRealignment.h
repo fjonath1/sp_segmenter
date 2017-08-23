@@ -54,10 +54,12 @@ void realignOrientation (Eigen::Matrix<numericStandard, 3, 3> &rotMatrix, const 
     objAxes[1] = Eigen::Vector3f(rotMatrix(0,1),rotMatrix(1,1),rotMatrix(2,1));
     objAxes[2] = Eigen::Vector3f(rotMatrix(0,2),rotMatrix(1,2),rotMatrix(2,2));
 
+
     Eigen::Vector3f axis(0,0,0);
     axis[axisToAlign] = 1;
 
     double dotProduct = axis.dot(objAxes[axisToAlign]);
+
     Eigen::Vector3f crossProduct = objAxes[axisToAlign].cross(axis);
 
     double angle = std::atan2(crossProduct.norm(),dotProduct); //since the vector is unit vector
@@ -191,7 +193,7 @@ Eigen::Quaternion<numericType> normalizeModelOrientation(const Eigen::Quaternion
 
     Eigen::Matrix<numericType,3,3> normalize_orientation = minQuaternion.matrix();
     realignOrientation(normalize_orientation,object,2);
-    realignOrientation(normalize_orientation,object,0,true,2); 
+    //realignOrientation(normalize_orientation,object,0,true,2); 
 
     return Eigen::Quaternion<numericType>(normalize_orientation);
 }
